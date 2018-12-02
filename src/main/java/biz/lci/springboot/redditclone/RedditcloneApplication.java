@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RedditcloneProperties.class)
@@ -17,6 +18,14 @@ public class RedditcloneApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RedditcloneApplication.class, args);
+    }
+
+    @Bean
+    @Profile("dev")
+    CommandLineRunner devOnlyRunner() {
+        return args -> {
+            System.out.println("This will only run when the profile is dev.");
+        };
     }
 
     @Bean
