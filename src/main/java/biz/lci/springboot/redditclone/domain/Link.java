@@ -1,9 +1,6 @@
 package biz.lci.springboot.redditclone.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Link extends Auditable {
     @Id
     @GeneratedValue
