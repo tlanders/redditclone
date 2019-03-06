@@ -47,7 +47,7 @@ public class RedditcloneApplication {
         };
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner databaseLoader(LinkRepository linkRepository, CommentRepository commentRepository) {
         return args -> {
             System.out.println("databaseLoader...");
