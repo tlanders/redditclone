@@ -3,9 +3,9 @@ package biz.lci.springboot.redditclone.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
 public class HomeController {
-    @GetMapping("/")
+    //@GetMapping("/")
     public String home() {
         return "index";     // use index template
     }
