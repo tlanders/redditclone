@@ -5,6 +5,7 @@ import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
 import biz.lci.springboot.redditclone.repository.CommentRepository;
 import biz.lci.springboot.redditclone.repository.LinkRepository;
+import org.ocpsoft.prettytime.PrettyTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class RedditcloneApplication {
         return args -> {
             System.out.println(redditcloneProperties.getWelcomeMsg());
         };
+    }
+
+    /**
+     * Create pretty time bean that other beans can use
+     * @return
+     */
+    @Bean
+    PrettyTime prettyTime() {
+        return new PrettyTime();
     }
 
     //@Bean
