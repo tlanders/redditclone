@@ -3,18 +3,26 @@ package biz.lci.springboot.redditclone.controller;
 import biz.lci.springboot.redditclone.domain.Link;
 import biz.lci.springboot.redditclone.repository.LinkRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/links")
+//@RestController
+@Controller
+//@RequestMapping("/links")
 public class LinkController {
     private LinkRepository linkRepository;
 
     public LinkController(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
+    }
+
+    @GetMapping("/foo")
+    public String foo(Model model) {
+        model.addAttribute("pageTitle", "This is page foo");
+        return "foo";
     }
 
     // list
