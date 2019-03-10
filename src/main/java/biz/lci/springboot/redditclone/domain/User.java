@@ -66,4 +66,8 @@ public class User extends Auditable implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+    public void addRole(Role r) {
+        roles.add(r);
+    }
 }
