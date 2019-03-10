@@ -19,34 +19,35 @@ public class LinkController {
         this.linkRepository = linkRepository;
     }
 
-    @GetMapping("/foo")
-    public String foo(Model model) {
-        model.addAttribute("pageTitle", "This is page foo");
-        return "foo";
-    }
+//    @GetMapping("/foo")
+//    public String foo(Model model) {
+//        model.addAttribute("pageTitle", "This is page foo");
+//        return "foo";
+//    }
 
     // list
     @GetMapping("/")
-    public List<Link> list() {
-        return linkRepository.findAll();
+    public String list(Model model) {
+        model.addAttribute("links", linkRepository.findAll());
+        return "link/list";
     }
 
-    // CRUD
-    @PostMapping("/create")
-    public Link create(@ModelAttribute Link link) {
-        return linkRepository.save(link);
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Link> read(@PathVariable Long id) {
-        return linkRepository.findById(id);
-    }
-    @PutMapping("/{id}")
-    public Link update(@PathVariable Long id, @ModelAttribute Link link) {
-        return linkRepository.save(link);
-    }
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        linkRepository.deleteById(id);
-    }
+//    // CRUD
+//    @PostMapping("/create")
+//    public Link create(@ModelAttribute Link link) {
+//        return linkRepository.save(link);
+//    }
+//
+//    @GetMapping("/{id}")
+//    public Optional<Link> read(@PathVariable Long id) {
+//        return linkRepository.findById(id);
+//    }
+//    @PutMapping("/{id}")
+//    public Link update(@PathVariable Long id, @ModelAttribute Link link) {
+//        return linkRepository.save(link);
+//    }
+//    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable Long id) {
+//        linkRepository.deleteById(id);
+//    }
 }
