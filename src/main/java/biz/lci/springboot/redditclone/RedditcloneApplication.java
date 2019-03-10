@@ -19,7 +19,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RedditcloneProperties.class)
-@EnableJpaAuditing
 public class RedditcloneApplication {
 
     @Autowired
