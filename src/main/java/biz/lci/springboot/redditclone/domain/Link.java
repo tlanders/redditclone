@@ -40,6 +40,15 @@ public class Link extends Auditable {
     @OneToMany(mappedBy = "link")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "link")
+    private List<Vote> votes = new ArrayList<>();
+
+    private int voteCount = 0;
+
+//    public long getVoteCount() {
+//        return votes.stream().mapToInt(Vote::getDirection).sum();
+//    }
+
     public void addComment(Comment c) {
         comments.add(c);
     }
