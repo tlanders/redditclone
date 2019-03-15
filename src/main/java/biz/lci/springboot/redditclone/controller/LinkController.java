@@ -1,9 +1,12 @@
 package biz.lci.springboot.redditclone.controller;
 
+import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
+import biz.lci.springboot.redditclone.repository.CommentRepository;
 import biz.lci.springboot.redditclone.repository.LinkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +21,13 @@ import java.util.Optional;
 //@RequestMapping("/links")
 public class LinkController {
     private LinkRepository linkRepository;
+    private CommentRepository commentRepository;
 
     private Logger logger = LoggerFactory.getLogger(LinkController.class);
 
-    public LinkController(LinkRepository linkRepository) {
+    public LinkController(LinkRepository linkRepository, CommentRepository commentRepository) {
         this.linkRepository = linkRepository;
+        this.commentRepository = commentRepository;
     }
 
 //    @GetMapping("/foo")
@@ -68,15 +73,31 @@ public class LinkController {
 //    }
 
     @GetMapping("/link/{id}")
-    public String read(@PathVariable Long id, Model model) {
+    public String read(@PathVariable Long id,Model model) {
         Optional<Link> link = linkRepository.findById(id);
-        if(link.isPresent()) {
-            model.addAttribute("link", link.get());
+        if( link.isPresent() ) {
+            Link currentLink = link.get();
+            Comment comment = new Comment();
+            comment.setLink(currentLink);
+            model.addAttribute("comment",comment);
+            model.addAttribute("link",currentLink);
             model.addAttribute("success", model.containsAttribute("success"));
             return "link/view";
         } else {
             return "redirect:/";
         }
+    }
+
+    @Secured({"ROLE_USER"})
+    @PostMapping("/link/comments")
+    public String addComment(@Valid Comment comment, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if( bindingResult.hasErrors() ) {
+            logger.info("Something went wrong.");
+        } else {
+            logger.info("New Comment Saved!");
+            commentRepository.save(comment);
+        }
+        return "redirect:/link/" + comment.getLink().getId();
     }
 
 //    @PutMapping("/{id}")

@@ -15,7 +15,8 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class Comment extends Auditable {
     @Id
