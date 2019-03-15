@@ -15,10 +15,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RedditcloneProperties.class)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class RedditcloneApplication {
 
     @Autowired
