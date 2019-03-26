@@ -2,7 +2,6 @@ package biz.lci.springboot.redditclone.controller;
 
 import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
-import biz.lci.springboot.redditclone.repository.CommentRepository;
 import biz.lci.springboot.redditclone.service.CommentService;
 import biz.lci.springboot.redditclone.service.LinkService;
 import org.slf4j.Logger;
