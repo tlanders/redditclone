@@ -16,11 +16,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RedditcloneProperties.class)
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableTransactionManagement
 public class RedditcloneApplication {
 
     @Autowired
