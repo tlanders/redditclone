@@ -2,11 +2,13 @@ package biz.lci.springboot.redditclone.controller;
 
 import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
+import biz.lci.springboot.redditclone.domain.User;
 import biz.lci.springboot.redditclone.service.CommentService;
 import biz.lci.springboot.redditclone.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +45,7 @@ public class LinkController {
             return "link/submit";
         } else {
             // save link
+            link.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             linkService.save(link);
             logger.info("link was saved successfully");
             redirectAttributes
