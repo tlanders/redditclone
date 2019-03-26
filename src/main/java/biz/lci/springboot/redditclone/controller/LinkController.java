@@ -3,6 +3,7 @@ package biz.lci.springboot.redditclone.controller;
 import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
 import biz.lci.springboot.redditclone.repository.CommentRepository;
+import biz.lci.springboot.redditclone.service.CommentService;
 import biz.lci.springboot.redditclone.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +20,13 @@ import java.util.Optional;
 @Controller
 //@RequestMapping("/links")
 public class LinkController {
-    private CommentRepository commentRepository;
     private LinkService linkService;
+    private CommentService commentService;
 
     private Logger logger = LoggerFactory.getLogger(LinkController.class);
 
-    public LinkController(CommentRepository commentRepository, LinkService linkService) {
-        this.commentRepository = commentRepository;
+    public LinkController(CommentService commentService, LinkService linkService) {
+        this.commentService = commentService;
         this.linkService = linkService;
     }
 
@@ -82,7 +83,7 @@ public class LinkController {
             logger.info("Something went wrong.");
         } else {
             logger.info("New Comment Saved!");
-            commentRepository.save(comment);
+            commentService.save(comment);
         }
         return "redirect:/link/" + comment.getLink().getId();
     }
