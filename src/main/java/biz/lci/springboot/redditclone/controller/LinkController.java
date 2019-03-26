@@ -3,7 +3,7 @@ package biz.lci.springboot.redditclone.controller;
 import biz.lci.springboot.redditclone.domain.Comment;
 import biz.lci.springboot.redditclone.domain.Link;
 import biz.lci.springboot.redditclone.repository.CommentRepository;
-import biz.lci.springboot.redditclone.repository.LinkRepository;
+import biz.lci.springboot.redditclone.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
@@ -16,25 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.Optional;
 
-//@RestController
 @Controller
 //@RequestMapping("/links")
 public class LinkController {
-    private LinkRepository linkRepository;
     private CommentRepository commentRepository;
+    private LinkService linkService;
 
     private Logger logger = LoggerFactory.getLogger(LinkController.class);
 
-    public LinkController(LinkRepository linkRepository, CommentRepository commentRepository) {
-        this.linkRepository = linkRepository;
+    public LinkController(CommentRepository commentRepository, LinkService linkService) {
         this.commentRepository = commentRepository;
+        this.linkService = linkService;
     }
-
-//    @GetMapping("/foo")
-//    public String foo(Model model) {
-//        model.addAttribute("pageTitle", "This is page foo");
-//        return "foo";
-//    }
 
     @GetMapping("/link/submit")
     public String newLinkForm(Model model) {
@@ -50,7 +43,7 @@ public class LinkController {
             return "link/submit";
         } else {
             // save link
-            linkRepository.save(link);
+            linkService.save(link);
             logger.info("link was saved successfully");
             redirectAttributes
                     .addAttribute("id", link.getId())
@@ -62,19 +55,13 @@ public class LinkController {
     // list
     @GetMapping("/")
     public String list(Model model) {
-        model.addAttribute("links", linkRepository.findAll());
+        model.addAttribute("links", linkService.findAll());
         return "link/list";
     }
 
-//    // CRUD
-//    @PostMapping("/create")
-//    public Link create(@ModelAttribute Link link) {
-//        return linkRepository.save(link);
-//    }
-
     @GetMapping("/link/{id}")
     public String read(@PathVariable Long id,Model model) {
-        Optional<Link> link = linkRepository.findById(id);
+        Optional<Link> link = linkService.findById(id);
         if( link.isPresent() ) {
             Link currentLink = link.get();
             Comment comment = new Comment();
@@ -99,13 +86,4 @@ public class LinkController {
         }
         return "redirect:/link/" + comment.getLink().getId();
     }
-
-//    @PutMapping("/{id}")
-//    public Link update(@PathVariable Long id, @ModelAttribute Link link) {
-//        return linkRepository.save(link);
-//    }
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable Long id) {
-//        linkRepository.deleteById(id);
-//    }
 }
