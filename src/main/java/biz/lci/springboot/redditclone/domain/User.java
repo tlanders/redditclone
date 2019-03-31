@@ -1,5 +1,6 @@
 package biz.lci.springboot.redditclone.domain;
 
+import biz.lci.springboot.redditclone.validator.PasswordsMatch;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@PasswordsMatch
 public class User extends Auditable implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,6 +31,10 @@ public class User extends Auditable implements UserDetails {
     @NonNull
     @Column(length = 100)
     private String password;
+
+    @Transient
+    @NotEmpty(message = "Please confirm the password.")
+    private String confirmPassword;
 
     @NonNull
     @Column(nullable = false)
