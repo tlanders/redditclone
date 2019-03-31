@@ -22,5 +22,6 @@ public class Role extends Auditable {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
     private Collection<User> users;
 }
