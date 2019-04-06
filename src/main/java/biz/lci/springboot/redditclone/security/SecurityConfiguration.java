@@ -38,7 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .logout()
                 .logoutUrl("/logout")
                 .and()
-            .rememberMe();
+            .rememberMe()
+            // below allows h2-console to work but is bad for production
+                .and()
+                .csrf().disable()
+                .headers().frameOptions().disable();
 
 //                .anyRequest().authenticated()
 //            .and()
