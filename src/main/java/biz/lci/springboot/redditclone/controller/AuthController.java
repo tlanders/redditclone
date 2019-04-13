@@ -52,28 +52,20 @@ public class AuthController {
             // register new user
             User newUser = userService.register(user);
             redirectAttributes
-                    .addAttribute("id", user.getId())
+                    .addAttribute("id", newUser.getId())
                     .addFlashAttribute("success", true);
         }
         return "redirect:/register";
     }
 
     @GetMapping("/activate/{email}/{activationCode}")
-    public String activateUser(@PathVariable String email, @PathVariable String activationCode, RedirectAttributes redirectAttributes) {
-        // TODO - add code
+    public String activateUser(@PathVariable String email, @PathVariable String activationCode) {
         logger.info("activate request - email={}, code={}", email, activationCode);
 
         if(userService.activateUser(email, activationCode)) {
-            // TODO - send user to success page of some kind
-            redirectAttributes
-                    .addFlashAttribute("success", true)
-                    .addFlashAttribute("message", "User account activated");
-            return "redirect:/";
+            return "auth/activated";
         } else {
             // TODO - display an error
-            redirectAttributes
-                    .addFlashAttribute("success", false)
-                    .addFlashAttribute("message", "Unable to activate user account");
             return "redirect:/";
         }
     }
