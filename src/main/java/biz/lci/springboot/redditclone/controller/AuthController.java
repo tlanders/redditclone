@@ -2,13 +2,13 @@ package biz.lci.springboot.redditclone.controller;
 
 import biz.lci.springboot.redditclone.domain.User;
 import biz.lci.springboot.redditclone.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,5 +56,25 @@ public class AuthController {
                     .addFlashAttribute("success", true);
         }
         return "redirect:/register";
+    }
+
+    @GetMapping("/activate/{email}/{activationCode}")
+    public String activateUser(@PathVariable String email, @PathVariable String activationCode, RedirectAttributes redirectAttributes) {
+        // TODO - add code
+        logger.info("activate request - email={}, code={}", email, activationCode);
+
+        if(userService.activateUser(email, activationCode)) {
+            // TODO - send user to success page of some kind
+            redirectAttributes
+                    .addFlashAttribute("success", true)
+                    .addFlashAttribute("message", "User account activated");
+            return "redirect:/";
+        } else {
+            // TODO - display an error
+            redirectAttributes
+                    .addFlashAttribute("success", false)
+                    .addFlashAttribute("message", "Unable to activate user account");
+            return "redirect:/";
+        }
     }
 }

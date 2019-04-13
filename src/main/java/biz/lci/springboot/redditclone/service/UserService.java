@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,6 +52,28 @@ public class UserService {
 
         // return user
         return user;
+    }
+
+    public boolean activateUser(String email, String activationCode) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isPresent()) {
+            User u = optionalUser.get();
+            if(u.getActivationCode().equals(activationCode)) {
+                u.setEnabled(true);
+                u.setConfirmPassword(u.getPassword());
+                save(u);
+
+                sendWelcomeEmail(u);
+                logger.debug("user={} activated", email);
+                return true;
+            } else {
+                logger.info("activateUser - activationCode={} does not match for {}", activationCode, email);
+                return false;
+            }
+        } else {
+            logger.info("activateUser - user={} not found", email);
+            return false;
+        }
     }
 
     public void sendActivationEmail(User user) {
