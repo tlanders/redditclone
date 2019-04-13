@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class UserService {
@@ -16,10 +18,12 @@ public class UserService {
     private final RoleService roleService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    private final MailService mailService;
 
-    public UserService(RoleService roleService, UserRepository userRepository) {
+    public UserService(MailService mailService, RoleService roleService, UserRepository userRepository) {
         this.roleService = roleService;
         this.userRepository = userRepository;
+        this.mailService = mailService;
 
         encoder = new BCryptPasswordEncoder();
     }
@@ -34,8 +38,10 @@ public class UserService {
         user.addRole(roleService.findByName("ROLE_USER"));
 
         // set an activation code
+        user.setActivationCode(UUID.randomUUID().toString());
 
         // disable user
+        user.setEnabled(false);
 
         // save user
         save(user);
@@ -48,7 +54,11 @@ public class UserService {
     }
 
     public void sendActivationEmail(User user) {
-        // TODO - do something
+        mailService.sendActivationEmail(user);
+    }
+
+    public void sendWelcomeEmail(User user) {
+        mailService.sendWelcomeEmail(user);
     }
 
     public User save(User user) {

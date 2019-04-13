@@ -52,6 +52,8 @@ public class User extends Auditable implements UserDetails {
     @Setter(AccessLevel.NONE)
     private String fullName;
 
+    private String activationCode;
+
     @NonNull
     @NotEmpty(message = "Please enter alias.")
     @Column(nullable = false, unique = true)
