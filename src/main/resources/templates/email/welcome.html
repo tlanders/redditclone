@@ -8,6 +8,6 @@
 <body>
     <h1>Springit Welcome</h1>
     <p th:text="|Dear ${user.getFullName()},|">Dear Username,</p>
-    <p>Welcome to your new favorite site.</p>
+    <p>Welcome to your new favorite <a href="http://localhost:8080" th:href="${}">site</a>!</p>
     </body>
 </html>

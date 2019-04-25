@@ -8,6 +8,12 @@
     <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
     <div class="container">
+        <div class="row link">
+            <div class="col-12"><h2 th:text="#{greeting}">Welcome PLACEHOLDER</h2></div>
+        </div>
+        <div class="row link">
+            <div class="col-12"><h2 th:text="${@environment.getProperty('aMessage')}">ENV TEST</h2></div>
+        </div>
         <!-- links -->
         <div class="row link" th:each="link : ${links}">
             <div class="col-1">
@@ -43,7 +49,7 @@
                 const linkID = this.getAttribute("data-id");
                 const voteSum = document.getElementById('votecount-' + linkID);
                 const voteSumValue = voteSum.innerHTML;
-                fetch(`http://localhost:8080/vote/link/${linkID}/direction/${direction}/votecount/${voteSumValue}`)
+                fetch(`/vote/link/${linkID}/direction/${direction}/votecount/${voteSumValue}`)
                     .then(response => response.json())
                     .then(data => voteSum.innerHTML = data)
                     .catch(err => console.error(err));

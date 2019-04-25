@@ -3,6 +3,7 @@ package biz.lci.springboot.redditclone.service;
 import biz.lci.springboot.redditclone.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -19,10 +20,12 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
     private final String BASE_URL = "http://localhost:8080";
+    private final Environment env;
 
-    public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine) {
+    public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, Environment e) {
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
+        this.env = e;
     }
 
     @Async
@@ -33,7 +36,7 @@ public class MailService {
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
             message.setTo(to);
-            message.setFrom("noreply@springit.com");
+            message.setFrom(env.getProperty("redditclone.email.replyto"));
             message.setSubject(subject);
             message.setText(content,isHtml);
             javaMailSender.send(mimeMessage);
