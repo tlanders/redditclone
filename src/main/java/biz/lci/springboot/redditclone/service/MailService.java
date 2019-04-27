@@ -19,7 +19,6 @@ public class MailService {
     private final Logger log = LoggerFactory.getLogger(MailService.class);
     private final SpringTemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
-    private final String BASE_URL = "http://localhost:8080";
     private final Environment env;
 
     public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, Environment e) {
@@ -50,7 +49,7 @@ public class MailService {
         Locale locale = Locale.ENGLISH;
         Context context = new Context(locale);
         context.setVariable("user", user);
-        context.setVariable("baseURL",BASE_URL);
+        context.setVariable("environment", env);
         String content = templateEngine.process(templateName,context);
         sendEmail(user.getEmail(),subject,content,false,true);
     }

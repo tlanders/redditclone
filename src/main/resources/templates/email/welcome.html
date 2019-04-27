@@ -8,6 +8,6 @@
 <body>
     <h1>Springit Welcome</h1>
     <p th:text="|Dear ${user.getFullName()},|">Dear Username,</p>
-    <p>Welcome to your new favorite <a href="http://localhost:8080" th:href="${}">site</a>!</p>
+    <p>Welcome to your new favorite <a href="#" th:href="${environment.getProperty('redditclone.base-url')}">site</a>!</p>
     </body>
 </html>
