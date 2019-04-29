@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/main_layout :: head(title = 'Springit - User Profile Page')}">
+</head>
+<body>
+
+<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+<!-- profile -->
+<div id="profile" class="container">
+
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comments</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+
+        <div class="col-8">
+            <div class="row">
+                <div class="card col-12" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">What's new in Spring Boot 2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">8 Comments</a>
+                        <a href="#" class="card-link">Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">What's new in Spring Boot 2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">8 Comments</a>
+                        <a href="#" class="card-link">Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">What's new in Spring Boot 2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">8 Comments</a>
+                        <a href="#" class="card-link">Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">What's new in Spring Boot 2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">8 Comments</a>
+                        <a href="#" class="card-link">Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">What's new in Spring Boot 2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">8 Comments</a>
+                        <a href="#" class="card-link">Share</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side -->
+        <div class="col-3 offset-1">
+            <div class="row">
+                <div class="card col-12">
+                    <img class="card-img-top" th:src="@{/images/profile_small.png}" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="/u/XXX" th:href="@{'/u/' + ${user.alias}}" th:text="|/u/${user.alias}|">/u/XXX</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12">
+                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                    <div class="card-body">
+                        <h5 class="card-title">User Information</h5>
+                        <p class="card-text">
+                            Posts: 10<br/>
+                            Comments: 3<br/>
+                            User Since: [[${user.createdBy}]]<br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- // row -->
+
+</div><!-- // profile -->
+
+</body>
+</html>

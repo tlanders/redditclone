@@ -6,7 +6,7 @@
     <title th:text="#{redditclone.email.welcome.title}">Your Message Subject or Title</title>
 </head>
 <body>
-    <h1 th:text="">Springit Welcome</h1>
+    <h1 th:text="#{redditclone.email.welcome.title}">Springit Welcome</h1>
     <p th:text="#{redditclone.email.welcome.greeting(${user.getFullName()})}">Dear Username,</p>
     <p th:utext="#{redditclone.email.welcome.body}">Welcome to your favorite site!</p>
     <p>

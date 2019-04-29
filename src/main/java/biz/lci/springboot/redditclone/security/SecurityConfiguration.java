@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/").hasRole("ADMIN")
                 .antMatchers("/link/submit").hasRole("USER")
                 .antMatchers("/profile").hasRole("USER")
+                .antMatchers("/u/**").hasRole("USER")
                 .antMatchers("/register").anonymous()
                 .antMatchers("/link/**").permitAll()
                 .antMatchers("/").permitAll()
@@ -38,11 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .logout()
                 .logoutUrl("/logout")
                 .and()
-            .rememberMe()
+            .rememberMe();
             // below allows h2-console to work but is bad for production
-                .and()
-                .csrf().disable()
-                .headers().frameOptions().disable();
+//                .and()
+//                .csrf().disable()
+//                .headers().frameOptions().disable();
 
 //                .anyRequest().authenticated()
 //            .and()

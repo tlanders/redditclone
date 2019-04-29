@@ -29,6 +29,10 @@ public class UserService {
         encoder = new BCryptPasswordEncoder();
     }
 
+    public Optional<User> findUserByAlias(String alias) {
+        return userRepository.findByAlias(alias);
+    }
+
     public User register(User user) {
         // take form password and encode it
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
