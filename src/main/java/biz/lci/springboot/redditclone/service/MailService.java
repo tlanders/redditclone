@@ -3,6 +3,8 @@ package biz.lci.springboot.redditclone.service;
 import biz.lci.springboot.redditclone.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,11 +22,13 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
     private final Environment env;
+    private final MessageService messageService;
 
-    public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, Environment e) {
+    public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, Environment e, MessageService ms) {
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
         this.env = e;
+        this.messageService = ms;
     }
 
     @Async
@@ -46,7 +50,7 @@ public class MailService {
 
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String subject) {
-        Locale locale = Locale.ENGLISH;
+        Locale locale = LocaleContextHolder.getLocale();
         Context context = new Context(locale);
         context.setVariable("user", user);
         context.setVariable("environment", env);
@@ -57,12 +61,14 @@ public class MailService {
     @Async
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "email/activation", "Springit User Activation");
-    }
+        sendEmailFromTemplate(user, "email/activation",
+                messageService.getMessage("redditclone.email.activation.subject", "User Activation Subject"));
+                    }
 
     @Async
     public void sendWelcomeEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "email/welcome", "Welcome new Springit User");
+        sendEmailFromTemplate(user, "email/welcome",
+                messageService.getMessage("redditclone.email.welcome.subject", "User Welcome Subject"));
     }
 }

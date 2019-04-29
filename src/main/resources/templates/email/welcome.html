@@ -3,11 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Your Message Subject or Title</title>
+    <title th:text="#{redditclone.email.welcome.title}">Your Message Subject or Title</title>
 </head>
 <body>
-    <h1>Springit Welcome</h1>
-    <p th:text="|Dear ${user.getFullName()},|">Dear Username,</p>
-    <p>Welcome to your new favorite <a href="#" th:href="${environment.getProperty('redditclone.base-url')}">site</a>!</p>
+    <h1 th:text="">Springit Welcome</h1>
+    <p th:text="#{redditclone.email.welcome.greeting(${user.getFullName()})}">Dear Username,</p>
+    <p th:utext="#{redditclone.email.welcome.body}">Welcome to your favorite site!</p>
+    <p>
+        <a th:text="#{redditclone.email.welcome.appLinkText}" th:href="${environment.getProperty('redditclone.base-url')}" href="#">Go to site.</a>
+    </p>
     </body>
 </html>

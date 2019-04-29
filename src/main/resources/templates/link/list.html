@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{layouts/main_layout :: head(title = 'Springit - Spring Boot Reddit Clone')}">
+<head th:replace="~{layouts/main_layout :: head(title = #{redditclone.pageTitle})}">
+<!--<head th:replace="~{layouts/main_layout :: head(title = 'Springit - Spring Boot Reddit Clone')}">-->
 </head>
 <body>
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
     <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
     <div class="container">
-        <div class="row link">
-            <div class="col-12"><h2 th:text="#{greeting}">Welcome PLACEHOLDER</h2></div>
-        </div>
-        <div class="row link">
-            <div class="col-12"><h2 th:text="${@environment.getProperty('aMessage')}">ENV TEST</h2></div>
-        </div>
         <!-- links -->
         <div class="row link" th:each="link : ${links}">
             <div class="col-1">
